@@ -62,3 +62,22 @@ func TestParseNumber(t *testing.T) {
 		}
 	}
 }
+
+func TestMetricName(t *testing.T) {
+	type testCase struct {
+		in  string
+		out string
+	}
+
+	testCases := []testCase{
+		{in: "foo.bar", out: "foo_bar"},
+		{in: "foo-bar", out: "foo_bar"},
+	}
+
+	for _, tc := range testCases {
+		out := metricName(tc.in)
+		if out != tc.out {
+			t.Fatalf("wrong output: %s, expected %s", out, tc.out)
+		}
+	}
+}
